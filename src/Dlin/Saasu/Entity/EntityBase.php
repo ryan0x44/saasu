@@ -238,16 +238,16 @@ class EntityBase
                     if (is_array($entity->$fieldName)) {
 
                         foreach ($sub as $child) {
-                            foreach ($child as $cname => $c) {
-                                if($entity->getArrayElementType($cname) === null){
-                                    $entity->{$fieldName}[] = $c;
+                            
+                                if($entity->getArrayElementType($fieldName) === null){
+                                    $entity->{$fieldName}[] = $child;
                                 }else{
-                                    $subClass = __NAMESPACE__ . '\\' . ucfirst($entity->getArrayElementType($cname));
+                                    $subClass = __NAMESPACE__ . '\\' . ucfirst($entity->getArrayElementType($fieldName));
                                     $obj = new $subClass();
-                                    $func($c, $obj);
+                                    $func($child, $obj);
                                     $entity->{$fieldName}[] = $obj;
                                 }
-                            }
+                            
                         }
 
 
